@@ -1,0 +1,10 @@
+---
+- hosts: all
+  remote_user: root
+  vars:
+    www_user: cryptoparty
+    db_password:
+  roles:
+    - base
+    - postgres
+    - cryptoparty

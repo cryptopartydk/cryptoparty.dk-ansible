@@ -1,0 +1,25 @@
+---
+
+- apt:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - postgresql-9.5
+    - postgresql-server-dev-9.5
+
+- name: Install psycopg2 systemwide for ansible
+  pip:
+    name: "psycopg2"
+
+- postgresql_user:
+    name: cryptoparty
+    password: "{{ db_password }}"
+  become: yes
+  become_user: postgres
+
+- postgresql_db:
+    name: cryptoparty
+    owner: cryptoparty
+  become: yes
+  become_user: postgres
+
