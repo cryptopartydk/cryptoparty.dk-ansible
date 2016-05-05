@@ -28,7 +28,7 @@ server {
 }
 
 server {
-    listen 443 default_server ssl;
+    listen 443 default_server ssl http2;
     server_name cryptoparty.dk www.cryptoparty.dk;
 
     root /usr/share/nginx/html;
