@@ -1,0 +1,49 @@
+---
+
+- name: Add Tor repo key
+  apt_key:
+    keyserver: keys.gnupg.net
+    id: A3C4F0F979CAA22CDBA8F512EE8CBC9E886DDD89
+
+- name: Add Tor repository
+  apt_repository:
+    repo: "deb http://deb.torproject.org/torproject.org xenial main"
+    state: present
+
+- name: Install Tor
+  apt:
+    name: "tor"
+    state: latest
+
+- name: Configure Tor
+  template:
+    src: torrc.j2
+    dest: /etc/tor/torrc
+
+- name: Create hidden service directory
+  file:
+    path: /var/lib/tor/hidden_service
+    state: directory
+    owner: debian-tor
+    group: debian-tor
+
+- name: Set HS hostname
+  copy:
+    content: "cryptodkmvnurimp.onion"
+    dest: /var/lib/tor/hidden_service/hostname
+    owner: debian-tor
+    group: debian-tor
+    mode: 0600
+
+- name: Set HS private key
+  copy:
+    content: "{{ hs_private_key }}"
+    dest: /var/lib/tor/hidden_service/private_key
+    owner: debian-tor
+    group: debian-tor
+    mode: 0600
+
+- name: Restart Tor service
+  service:
+    name: tor
+    state: restarted

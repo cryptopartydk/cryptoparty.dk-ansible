@@ -3,6 +3,25 @@ upstream cryptoparty_app {
 }
 
 server {
+    listen 81;
+    server_name cryptodkmvnurimp.onion;
+
+    ### Actual website stuff
+    location /media  {
+        alias /srv/cryptoparty/cryptoparty/media;
+        autoindex off;
+    }
+    location /static {
+        alias /srv/cryptoparty/cryptoparty/static;
+        autoindex off;
+    }
+    location / {
+        include uwsgi_params;
+        uwsgi_pass cryptoparty_app;
+    }
+}
+
+server {
     listen 80 default_server;
     server_name cryptoparty.dk www.cryptoparty.dk;
     rewrite ^ https://$server_name$request_uri? permanent;
@@ -21,9 +40,8 @@ server {
     error_log   /var/log/nginx/cryptoparty.error_log;
 
     ### SSL stuff
-    ssl_certificate /etc/ssl/certs/cryptoparty.crt;
-    ssl_certificate_key /etc/ssl/private/cryptoparty.key;
-    ssl_trusted_certificate /etc/ssl/certs/cryptoparty_trusted.pem;
+    ssl_certificate /etc/nginx/acme/cryptopartydk.crt;
+    ssl_certificate_key /etc/ssl/private/cryptopartydk1.key;
     ssl_dhparam /etc/ssl/certs/cryptoparty_dhparam.pem;
 
     ssl_prefer_server_ciphers on;
@@ -41,6 +59,7 @@ server {
     add_header X-XSS-Protection "1; mode=block";
     add_header X-Frame-Options DENY;
     add_header X-Content-Type-Options nosniff;
+    add_header Public-Key-Pins 'pin-sha256="NMI/F1t9foyTPJ5TeCfMXvQDiS2qWUxQA3mRA2rK+b8="; pin-sha256="1UnctNMfmaWiHP2O4Bw0Z/CXSzSzEgNMzKIfYUxkDlg="; pin-sha256="akLLOW+RKLNk/qqGu3Ra0L+x2eriQ7eoz9x4Fu3vx5k="; max-age=5184000;';
 
     gzip on;
     gzip_comp_level 5;

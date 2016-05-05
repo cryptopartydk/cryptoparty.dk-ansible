@@ -1,0 +1,23 @@
+
+- name: Create acme group
+  group:
+    name: "acme"
+
+- name: Create acme user
+  user:
+    name: "acme"
+    group: "acme"
+
+- name: Create challenges directory
+  file:
+    path: "/home/acme/challenges"
+    state: directory
+    owner: "acme"
+    group: "acme"
+
+- name: Create CSR/CRT directory
+  file:
+    path: "/etc/nginx/acme"
+    state: directory
+    owner: "acme"
+    group: "acme"

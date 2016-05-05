@@ -1,0 +1,26 @@
+---
+- name: Install nginx
+  apt:
+    name: "nginx"
+    state: latest
+
+- name: nginx configuration
+  template:
+    src: nginx_site.j2
+    dest: /etc/nginx/sites-available/cryptoparty
+
+- name: Enable nginx configuration
+  file:
+    state: link
+    src: /etc/nginx/sites-available/cryptoparty
+    path: /etc/nginx/sites-enabled/cryptoparty
+
+- name: Disable default nginx site
+  file:
+    path: /etc/nginx/sites-enabled/default
+    state: absent
+
+- name: Create dhparams
+  shell: "/usr/bin/openssl dhparam 4096 > /etc/ssl/certs/cryptoparty_dhparam.pem"
+  args:
+    creates: /etc/ssl/certs/cryptoparty_dhparam.pem

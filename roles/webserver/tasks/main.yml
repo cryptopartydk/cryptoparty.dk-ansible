@@ -1,0 +1,7 @@
+---
+- include: nginx.yml
+- include: letsencrypt.yml
+- include: tor.yml
+
+- name: Test nginx configuration
+  command: /usr/sbin/nginx -t

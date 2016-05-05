@@ -1,6 +1,7 @@
 ---
 
-- apt:
+- name: Install postgresql
+  apt:
     name: "{{ item }}"
     state: latest
   with_items:
@@ -11,13 +12,15 @@
   pip:
     name: "psycopg2"
 
-- postgresql_user:
+- name: Create posgresql user
+  postgresql_user:
     name: cryptoparty
     password: "{{ db_password }}"
   become: yes
   become_user: postgres
 
-- postgresql_db:
+- name: Create postgresql database
+  postgresql_db:
     name: cryptoparty
     owner: cryptoparty
   become: yes

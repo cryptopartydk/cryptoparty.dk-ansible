@@ -1,4 +1,5 @@
 ---
+
 - name: Update and upgrade system via apt
   apt:
     update_cache: yes
@@ -14,8 +15,6 @@
     - python3-venv
     - python-pip
     - python-dev
-    - upstart
-    - nginx
     - git
 
 - name: Install uwsgi systemwide

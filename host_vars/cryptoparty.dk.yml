@@ -1,0 +1,8 @@
+---
+www_user: cryptoparty
+git_version: master
+allowed_hosts: cryptoparty.dk,www.cryptoparty.dk,cryptodkmvnurimp.onion
+email_host: smtp.sparkpostmail.com
+email_port: 587
+email_host_user: SMTP_Injection
+default_from_email: kontakt@cryptoparty.dk
