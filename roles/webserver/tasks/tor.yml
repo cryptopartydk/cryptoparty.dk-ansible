@@ -26,6 +26,7 @@
     state: directory
     owner: debian-tor
     group: debian-tor
+    mode: 0700
 
 - name: Set HS hostname
   copy:
