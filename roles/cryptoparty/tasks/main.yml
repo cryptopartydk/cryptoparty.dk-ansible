@@ -1,4 +1,5 @@
 ---
+- include_vars: "host_vars/cryptoparty.dk-secrets.yml"
 
 - name: Pull from git
   git:

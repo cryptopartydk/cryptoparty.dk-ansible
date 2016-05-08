@@ -1,5 +1,14 @@
 # Cryptoparty.dk Ansible playbooks
 
+Provision command:
+
+    ansible-playbook --ask-vault-pass -i cryptoparty.dk, provision.yml
+
+
+Deploy command:
+
+    ansible-playbook --ask-vault-pass -i cryptoparty.dk, deploy.yml
+
 ## Checks
 
 We should ensure that these pages give the highest possible character (of

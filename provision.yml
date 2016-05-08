@@ -1,5 +1,5 @@
 ---
-- hosts: all
+- hosts: cryptoparty.dk
   remote_user: root
   roles:
     - base
